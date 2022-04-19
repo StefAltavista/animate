@@ -1,0 +1,24 @@
+* {
+    box-sizing: border-box;
+}
+.countries {
+    position: relative;
+}
+#results {
+    position: absolute;
+    width: 100px;
+    height: auto;
+    background-color: rgb(219, 235, 246);
+    border-radius: 10px;
+    transition: all 500ms;
+}
+p {
+    overflow: hidden;
+}
+.hidden {
+    height: 0px;
+}
+
+.highlight {
+    background-color: lightgoldenrodyellow;
+}
