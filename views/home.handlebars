@@ -1,23 +1,27 @@
-<h1>Petition</h1>
-<p>Sign this petition!</p>
-<form method="POST">
+<div class="title"><h1 class="header">animate</h1></div>
+<p>From Anima: "Breath, Soul"<br> To animate litterally means "to give a soul". Say No to soulless websites! Lets brings life an otherwise grey user experience<br>Sign this petition to make animated website Mandatory!</p>
+<p class="note">...and computer industry to invest in faster and more sustaibable CPUS</p>
+    <form method="POST">
+        <label>name</label>
+        <input name="name" required />
+        <label>surname</label>
+        <input name="surname" required />
+        <label>age</label>
+        <input name="age" required />
+        <label>city</label>
+        <input name="city" required />
+        <label>country</label>
+        <div class="countries"><input class="inpCout"
+                name="country"
+                type="text"
+                placeholder="Seach..."
+                id="countries"
+                required
+            />
+            <div id="results"></div></div>
+        <label>signature</label>
+        <canvas width="300" height="100"></canvas>
+        <input name="signature" id="signature" style="display:none" />
+        <button type="submit">sign</button>
+   
 
-    Name:
-    <input name="name" />
-    Surname:
-    <input name="surname" />
-    Age:
-    <input name="age" />
-    City:
-    <input name="city" />
-    Country:
-    <div class="countries"><input
-            name="country"
-            type="text"
-            placeholder="Seach..."
-            id="countries"
-        />
-        <div id="results"></div></div>
-    <canvas width="300" height="100"></canvas>
-    <button type="submit">Submit</button>
-</form>

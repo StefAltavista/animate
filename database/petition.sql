@@ -6,6 +6,7 @@ CREATE TABLE signatures (
      surname VARCHAR NOT NULL CHECK (surname != ''),
      age int NOT NULL,
      city VARCHAR NOT NULL CHECK (name != ''),
-     country VARCHAR NOT NULL CHECK (country !='')
-     --signature VARCHAR NOT NULL CHECK (signature != '')
+     country VARCHAR NOT NULL CHECK (country !=''),
+     signature VARCHAR NOT NULL CHECK (signature !='')
+    
 );

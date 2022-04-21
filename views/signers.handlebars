@@ -1,8 +1,19 @@
 <h1>We are the signers of the Petition:</h1>
 
-<ol>
+<div id="grid">
+    <div class="header">Name</div>
+    <div class="header">Surname</div>
+    <div class="header">Age</div>
+    <div class="header">City</div>
+    <div class="header">Country</div>
+    <div class="header">Signature</div>
     {{#signers}}
-        <li>{{name}}{{age}}</li>
+        <div class="data">{{name}}</div>
+        <div class="data">{{surname}}</div>
+        <div class="data">{{age}}</div>
+        <div class="data">{{city}}</div>
+        <div class="data">{{country}}</div>
+        <div class="data"><img src="{{signature}}" /></div>
     {{/signers}}
 
-</ol>
+</div>

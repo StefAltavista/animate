@@ -1,0 +1,36 @@
+#grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+
+    grid-template-rows: 25px;
+    grid-auto-rows: 45px;
+    justify-content: space-around;
+
+    width: 90%;
+    height: auto;
+}
+img {
+    width: 50px;
+    height: 30px;
+}
+.header {
+    display: flex;
+    justify-content: center;
+
+    background-color: rgba(97, 91, 203, 0.515);
+    color: aliceblue;
+    border-top: 1px solid rgba(255, 255, 255, 0);
+    border-bottom: 4px solid rgba(255, 255, 255, 0);
+}
+
+#grid .data {
+    padding: 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px dashed rgb(255, 255, 255);
+}
+
+#grid div {
+    border-right: 4px solid rgba(255, 255, 255, 0);
+}
