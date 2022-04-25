@@ -3,12 +3,15 @@ const app = express();
 const db = require("./database/db");
 const { engine } = require("express-handlebars");
 const cookieSession = require("cookie-session");
-var id, name, surname, signature;
+const user = require("./user.js");
+//const { redirect } = require("express/lib/response");
+var verify;
+var id, name, surname, signature, exists;
 app.engine("handlebars", engine());
 app.set("view engine", "handlebars");
 app.use(
     cookieSession({
-        secret: `I'm always angry.`,
+        secret: `masking the cookie with this string`,
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
@@ -22,71 +25,158 @@ app.use(
 );
 
 app.get("/", (req, res) => {
-    res.redirect("/petition");
+    res.redirect("/home");
 });
-
-app.get("/petition", (req, res) => {
-    if (req.session.signatureId) res.redirect("/petition/thanks");
+app.get("/home", (req, res) => {
     res.render("home", {
-        title: "petition",
-        script: [
-            { script: "./countries.js" },
-            { script: "./signature.js" },
-            { script: "./animate.js" },
-        ],
-        style: [{ style: "style.css" }, { style: "countries.css" }],
+        title: "Animate Petition",
+        script: [{ script: "./homeanimation.js" }],
+        style: [{ style: "./home.css" }],
     });
 });
 
-app.post("/petition", (req, res) => {
-    const { name, surname, age, city, country, signature } = req.body;
-    db.add(name, surname, age, city, country, signature)
+app.get("/register", (req, res) => {
+    res.render("register", {
+        exists: exists,
+        title: "Register",
+        script: [{ script: "./animatedata.js" }],
+        style: [{ style: "./style.css" }, { style: "data.css" }],
+    });
+});
+
+app.post("/register", (req, res) => {
+    const { email, password } = req.body;
+    user.neu(email, password).then((id) => {
+        if (id) {
+            exists = false;
+            req.session.signatureId = id;
+            res.redirect("./data");
+        } else {
+            res.redirect("/register");
+            exists = true;
+        }
+    });
+});
+
+app.get("/data", (req, res) => {
+    if (req.session.data) res.redirect("/petition/sign");
+    if (!req.session.signatureId) res.redirect("/petition/register");
+    res.render("data", {
+        title: "Data",
+        script: [
+            { script: "./countries.js" },
+            { script: "./animatedata.js" },
+            { script: "./inputcheck.js" },
+        ],
+        style: [
+            { style: "style.css" },
+            { style: "countries.css" },
+            { style: "data.css" },
+        ],
+    });
+});
+
+app.post("/data", (req, res) => {
+    let { name, surname, age, city, country, link } = req.body;
+
+    if (!/^[0-9]+$/.test(age)) {
+        age = null;
+    }
+    if (
+        name == "" &&
+        surname == "" &&
+        age == "" &&
+        city == "" &&
+        country == "" &&
+        link == ""
+    ) {
+        console.log("no data added, redirect to /sign");
+        res.redirect("/sign");
+        return;
+    }
+
+    db.add(req.session.signatureId, name, surname, age, city, country, link)
         .then(({ rows }) => {
-            console.log("id:", rows[0].id);
-            req.session.signatureId = rows[0].id;
-            id = rows[0].id;
-            res.redirect("/petition/thanks");
+            console.log("Data added:", rows);
+            req.session.data = "added";
+            res.redirect("/sign");
         })
         .catch((err) => {
+            console.log("in catch db.add");
             console.log("err", err);
             res.sendStatus(500);
         });
 });
+app.get("/sign", (req, res) => {
+    if (req.session.signature) res.redirect("/thanks");
+    res.render("sign", {
+        title: "Sign",
+        script: [{ script: "./signature.js" }, { script: "./animate.js" }],
+        style: [{ style: "style.css" }],
+    });
+});
 
-app.get("/petition/thanks", (req, res) => {
+app.post("/sign", (req, res) => {
+    const { signature } = req.body;
+    db.sign(signature);
+    req.session.signature = "signed";
+    res.redirect("/thanks");
+});
+
+app.get("/thanks", (req, res) => {
     if (!req.session.signatureId) res.redirect("/petition");
+    if (!req.session.signature) res.redirect("/sign");
 
-    db.queryId(req.session.signatureId).then(({ rows }) => {
+    db.signatoires().then(({ rows }) => {
         console.log("HERE: ", rows[0]);
         ({ id, name, surname, signature } = rows[0]);
 
-        db.query()
-            .then((all) => {
+        db.signatoires()
+            .then(({ rows }) => {
                 res.render("thanks", {
                     title: "Thanks!",
                     id: id,
                     name: name,
                     surname: surname,
                     signature: signature,
-                    number: all.rows.length,
+                    number: rows.length,
+                    style: [{ style: "style.css" }, { style: "thanks.css" }],
+                    script: [{ script: "/animatethanks.js" }],
                 });
             })
             .catch((err) => console.log("error retrieving data", err));
     });
 });
-app.get("/petition/signers", (req, res) => {
+app.get("/signers", (req, res) => {
     if (!req.session.signatureId) res.redirect("/petition");
+    if (!req.session.signature) res.redirect("/sign");
+    var { ct, cn } = req.query;
 
-    db.query()
+    if (ct) {
+        verify = /^[a-zA-Z]+$/.test(ct);
+        console.log("ct", ct, verify);
+        verify ? "" : (ct = null);
+    }
+    if (cn) {
+        verify = /^[a-zA-Z]+$/.test(cn);
+        console.log("cn", cn, verify);
+        verify ? "" : (cn = null);
+    }
+
+    db.signatoires(ct, cn)
         .then(({ rows }) => {
             res.render("signers", {
                 title: "Signers",
                 signers: rows,
                 style: [{ style: "/style.css" }, { style: "/signers.css" }],
-                script: [{ script: "./animate.js" }],
+                //script: [{ script: "./animate.js" }],
             });
         })
         .catch((err) => console.log("error", err));
+});
+
+app.get("*", (req, res) => {
+    res.redirect("/");
 });
 
 app.listen(8080, console.log("Listening to port 8080"));

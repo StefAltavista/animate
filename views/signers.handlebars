@@ -1,19 +1,17 @@
-<h1>We are the signers of the Petition:</h1>
+<h1>We stand for animate:</h1>
 
 <div id="grid">
     <div class="header">Name</div>
-    <div class="header">Surname</div>
     <div class="header">Age</div>
     <div class="header">City</div>
     <div class="header">Country</div>
-    <div class="header">Signature</div>
+
     {{#signers}}
-        <div class="data">{{name}}</div>
-        <div class="data">{{surname}}</div>
+        <div class="data"><a href="{{link}}">{{name}}</a></div>
         <div class="data">{{age}}</div>
-        <div class="data">{{city}}</div>
-        <div class="data">{{country}}</div>
-        <div class="data"><img src="{{signature}}" /></div>
+        <div class="data"><a href="./signers?ct={{city}}">{{city}}</a></div>
+        <div class="data"><a href="./signers?cn={{country}}">
+                {{country}}</a></div>
     {{/signers}}
 
 </div>

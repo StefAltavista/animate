@@ -30,16 +30,16 @@ module.exports.register = (email, hash) => {
     );
 };
 
-module.exports.add = (name, surname, age, city, country) => {
+module.exports.add = (user_id, name, surname, age, city, country, link) => {
     return db.query(
-        `INSERT INTO userData (name, surname, age, city, country) VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-        [name, surname, age, city, country]
+        `INSERT INTO userData (user_id, name, surname, age, city, country,link) VALUES ($1, $2, $3, $4, $5, $6,$7) RETURNING id`,
+        [user_id, name, surname, age, city, country, link]
     );
 };
 
-module.exports.sign = (signature) => {
+module.exports.sign = (user_id, signature) => {
     return db.query(
-        `INSERT INTO signature (signature) VALUES ($1) RETURNING id`,
-        [signature]
+        `INSERT INTO signatures (user_id, signature) VALUES ($1, $2) RETURNING id`,
+        [user_id, signature]
     );
 };

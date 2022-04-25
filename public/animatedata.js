@@ -1,14 +1,15 @@
 (function () {
     var form = document.querySelector("form");
-    var header = document.querySelector(".header");
+    var title = document.querySelector(".title");
     var body = document.querySelector("body");
     var up = false;
     var uph = false;
     var w = 0;
-    var q = 0;
+    var i = 0;
     var t = 0;
     var c = 0;
-    var k = 0;
+    var x = 0;
+    var y = 0;
     var o = 0;
 
     const animateForm = () => {
@@ -29,22 +30,28 @@
 
         if (up) {
             c += 0.025;
-            w = Math.floor(Math.sin(c) * 50 + 400);
-        } else if (w < 400) {
+            w = Math.floor(Math.sin(c) * 50 + 350);
+        } else if (w < 350) {
             w += 0.85;
         } else {
             up = true;
         }
 
-        header.style.fontSize = q + "px";
+        i += 0.01;
+        x = Math.sin(i) * 300;
+        y = Math.cos(i) * 300;
+        title.style.left = x + 125;
+        title.style.top = y + 125;
 
-        uph ? (q += 0.1) : (q -= 0.1);
-        if (q < 4) {
-            uph = true;
-        }
-        if (q > 20) {
-            uph = false;
-        }
+        // header.style.fontSize = q + "px";
+
+        // uph ? (q += 0.1) : (q -= 0.1);
+        // if (q < 4) {
+        //     uph = true;
+        // }
+        // if (q > 20) {
+        //     uph = false;
+        // }
 
         //posibility with sin function
         // if (uph) {

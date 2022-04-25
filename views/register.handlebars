@@ -1,0 +1,21 @@
+<a href="/home"><div class="title"><h1 class="header">animate</h1></div></a>
+<form method="POST">
+    <label>email</label>
+    <input type="email" name="email" required />
+    <label>password</label>
+    <input type="password" name="password" required />
+    <div class="buttons">
+        <button type="submit">sign in</button>
+        {{#if exists}}<strong style="color:red">this email is already registered
+                on our database</strong>;{{/if}}
+        <a href="/login"><div class="button">log in</div></a></div>
+</form>
+<div class="tell" style="margin-left: 40px">
+    <p>from Latin animatus, past participle of animare "give breath to. Anima:
+        "Breath, Soul". To animate litterally means "to give a soul".
+        <br /><br />
+        Join our comunity, say no to soulless websites. Lets breathe life into
+        an otherwise grey user experience. Sign this petition to make animated
+        website Mandatory!</p>
+    <p class="note">Register or Log in in order to sign</p>
+</div>

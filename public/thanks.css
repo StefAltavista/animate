@@ -1,0 +1,14 @@
+.bubble {
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    z-index: -1;
+    background: linear-gradient(
+        rgba(255, 255, 255, 0.459),
+        rgba(176, 161, 230, 0.512)
+    );
+    /* box-shadow: 20px 0px 60px 1px rgb(255, 255, 255); */
+    border: none;
+    border-radius: 50%;
+    position: absolute;
+}

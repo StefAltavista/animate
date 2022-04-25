@@ -11,12 +11,9 @@
         if (down) {
             c.lineWidth = 1;
             c.strokeStyle = "midnightBlue";
-            x = e.pageX - canvas.offsetLeft;
-            y = e.pageY - canvas.offsetTop;
-            if (x > 280 || x < 10 || y > 90 || y < 10) {
-                down = false;
-                return;
-            }
+            x = e.clientX - canvas.offsetLeft;
+            y = e.clientY - canvas.offsetTop;
+
             console.log(canvas.offsetHeight, canvas.offsetTop);
             c.lineTo(x, y);
             c.stroke();
