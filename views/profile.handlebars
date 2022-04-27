@@ -1,31 +1,36 @@
-<header>
-    <div id="avatar">
-        <img src="" />
+<div id="user"><header>
+        <h1>Hello: {{name}} {{surname}}</h1>
+        {{#if signature}}
+            <p>thanks for signing this petition</p>
+        {{/if}}
+    </header>
+
+    <div id="signature">
+
+        {{#if signature}}<img src="{{signature}}" />
+        {{else}}
+            You havent sign the petition yet
+        {{/if}}
+
+    </div></div>
+<div id="info">
+    <div class="data">
+        <p>Age:<br /><br />{{age}}</p>
+        <p>City:<br /><br />{{city}}</p>
+        <p>Country:<br /><br />{{country}}</p>
+        <p>Website:<br /><br />{{link}}</p>
     </div>
+    <div id="buttons">
+        <form action="/edit" method="get">
+            <button type="submit">Update Informations</button>
+        </form>
+        <form action="/deletesignature" method="post">
+            <button type="submit">Delete Signature</button>
+        </form>
 
-    <h1>Hello: {{name}} {{surname}}</h1>
-</header>
+        <form action="/logout" method="get">
+            <button type="submit">Log out</button>
+        </form>
 
-<div id="signature">
-    <h3>Signature</h3>
-    {{#if signature}}<img src="{{signature}}" />
-    {{else}}
-        You havent sign the petition yet
-    {{/if}}
-    <form action="/deletesignature" method="post">
-        <button type="submit">Delete Signature</button>
-    </form>
+    </div>
 </div>
-
-<p>Personal Informations</p>
-
-<div class="data">
-    <p>age: {{age}}</p>
-    <p>City: {{city}}</p>
-    <p>Country: {{country}}</p>
-    <p>Website: {{link}}</p>
-</div>
-
-<form action="/edit" method="get">
-    <button type="submit">Update Informations</button>
-</form>

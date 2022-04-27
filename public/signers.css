@@ -9,6 +9,19 @@
     width: 90%;
     height: auto;
 }
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    padding: 10px;
+    box-shadow: 0px 0px 20px 1px rgb(255, 255, 255);
+    position: absolute;
+    left: -100px;
+    width: 100px;
+    height: 100px;
+}
 img {
     width: 50px;
     height: 30px;

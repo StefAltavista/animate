@@ -2,15 +2,17 @@ function checkLogin(req, res, next) {
     if (req.route.path == "/register" && req.session.signatureId) {
         console.log("in reg");
         res.redirect("./sign");
+    } else if (req.route.path == "/login" && req.session.signatureId) {
+        res.redirect("./sign");
+    } else if (req.route.path == "/login" && !req.session.signatureId) {
+        next();
+        return;
     } else if (req.route.path != "/register" && !req.session.signatureId) {
         res.redirect("./register");
     } else {
         next();
         return;
     }
-}
-function checkLogout(req, res, next) {
-    next();
 }
 
 function checkAdd(req, res, next) {
@@ -71,7 +73,6 @@ module.exports = {
     checkAdd,
     checkData,
     checkLogin,
-    checkLogout,
     checkSignature,
     checkQuery,
 };

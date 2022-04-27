@@ -1,15 +1,20 @@
 (function () {
     var bubbles = document.querySelectorAll(".bubble");
+    var names = document.querySelectorAll("#names");
+    console.log(names[0].innerHTML);
 
     var body = document.querySelector("body");
     var t = 0;
     var y = [];
     var s = [];
+    var r = 0;
 
     for (var i = 0; i < bubbles.length; i++) {
-        bubbles[i].style.left = Math.random() * 80 + 10 + "%";
+        bubbles[i].innerHTML =
+            names[Math.floor(Math.random() * names.length)].innerHTML;
+        bubbles[i].style.left = Math.random() * 70 + 10 + "%";
         y[i] = Math.random() * 95;
-        s[i] = Math.random();
+        s[i] = Math.random() + 0.1;
 
         bubbles[i].style.top = y[i] + "%";
     }
@@ -27,7 +32,17 @@
         for (i = 0; i < bubbles.length; i++) {
             y[i] -= s[i];
             bubbles[i].style.top = y[i] + "%";
-            if (y[i] < 0) y[i] = 105;
+
+            if (y[i] < 0) {
+                r = Math.floor(Math.random() * 255);
+                bubbles[i].style.background = `inear-gradient(
+                    rgba(${r}, 255, 255, 0.459),
+                    rgba(176, 161, 230, 0.512)
+                );`;
+                y[i] = 75;
+                bubbles[i].style.top = y[i] + "%";
+                bubbles[i].style.left = Math.random() * 70 + 10 + "%";
+            }
         }
 
         requestAnimationFrame(animate);

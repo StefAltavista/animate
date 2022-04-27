@@ -11,13 +11,17 @@
 
     {{#if init}} 
     <nav>
-        <div id="account"><div id="init"><p>{{init}}</p></div></div>
-        <div id="menu" class="hide">
-            <ul>
-                <a href="/profile"><li>profile</li></a>
-                <a href="/signatoires"><li>signatoires</li></a>
-                <a href="/logout"><li>log out</li></a>
-            </ul>
+        <div id="account">
+            <div id="init">
+                <p>{{init}}</p>
+            </div>
+        </div>
+
+        <div id="menu">
+                <a href="/signers">signers</a>
+                <a href="/profile">profile</a>
+                <a href="/logout">log out</a>
+            
         </div>
     </nav>
     {{/if}}

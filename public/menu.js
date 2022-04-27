@@ -4,18 +4,20 @@
     const body = document.querySelector("body");
     console.log(account, menu);
     var open = false;
-    var i = 0;
-    // const a = $("#account");
-    // console.log(a);
-    accountColor();
+    var i = -1;
+
     account.addEventListener("click", (e) => {
         e.stopPropagation();
+        account.style.transform = "rotate(" + i + "turn)";
+        i++;
+        i = -i;
+        console.log(i);
         if (open) {
             menu.style.height = "0px";
             open = false;
             return;
         } else {
-            menu.style.height = "100px";
+            menu.style.height = "120px";
             open = true;
             return;
         }
@@ -29,14 +31,4 @@
         }
         return;
     });
-    var r = 0;
-    function accountColor() {
-        r = Math.floor(Math.sin(i) * 50 + 50);
-        i += 0.3;
-        // account.style.boxShadow = "0px 0px 20px 10px rgb(" + r + ", 175, 255);";
-        account.style.backgroundColor = `rgb(${r},255,255);`;
-        console.log(r);
-
-        requestAnimationFrame(accountColor);
-    }
 })();

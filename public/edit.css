@@ -30,36 +30,46 @@ p {
 }
 
 form {
-    background: linear-gradient(
-        rgb(255, 255, 255),
-        rgba(144, 224, 248, 0),
-        rgba(24, 3, 102, 0.251)
-    );
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    overflow: hidden;
+}
+
+#bub {
+    margin: 10px;
     display: flex;
     flex-direction: column;
-    border-radius: 50%;
     align-items: center;
+    box-shadow: 0px 0px 10px 1px rgb(255, 255, 255);
+    height: 130px;
+    width: 130px;
+    transition: 700ms;
     overflow: hidden;
-
-    box-shadow: 0px 0px 30px 2px rgb(255, 255, 255);
+    background: linear-gradient(
+        rgba(161, 221, 230, 0.02),
+        rgba(88, 178, 234, 0.02),
+        rgba(114, 114, 224, 0.02)
+    );
 }
 
-canvas {
-    margin: 5px;
-    border: 1px dotted rgb(255, 255, 255);
-    background-color: rgb(255, 255, 255);
-    border-radius: 50%;
-    box-shadow: 0px 0px 30px 2px rgb(255, 255, 255);
+#bub:hover {
+    margin: 0px;
+    height: 150px;
+    width: 150px;
+    background: linear-gradient(
+        rgba(161, 221, 230, 0.257),
+        rgba(88, 178, 234, 0.253),
+        rgba(231, 231, 249, 0.104)
+    );
 }
-
 input {
     text-align: center;
-    width: 40%;
-    height: 20%;
+    width: 70%;
+    height: 40%;
     border-radius: 50%;
     border: none;
     margin: 10px;
-    background-color: white;
+    background-color: transparent;
     box-shadow: 0px 0px 10px 1px rgb(255, 255, 255);
     transition: all 500ms;
 }
@@ -82,17 +92,18 @@ textarea:focus {
 }
 label {
     margin-top: 20px;
+    font-size: 11px;
     color: rgb(23, 30, 106);
 }
 button {
-    margin-top: 20px;
     background-color: transparent;
-    /* background: linear-gradient(rgb(255, 255, 255), rgb(161, 182, 230)); */
+    box-shadow: 0px 0px 20px 1px rgb(255, 255, 255);
     border: none;
+
     border-radius: 50%;
-    padding: 5px;
+    padding: 25px;
     color: rgb(19, 62, 100);
-    margin-bottom: 5px;
+
     cursor: pointer;
 }
 .button {
@@ -145,6 +156,7 @@ nav {
         rgba(176, 161, 230, 0.512)
     );
 }
+
 #account:hover {
     box-shadow: 0px 0px 30px 10px rgb(255, 255, 255);
 }

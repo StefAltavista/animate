@@ -6,7 +6,6 @@ const cookieSession = require("cookie-session");
 const user = require("./user.js");
 const {
     checkLogin,
-    checkLogout,
     checkAdd,
     checkData,
     checkSignature,
@@ -51,7 +50,7 @@ app.get("/register", checkLogin, (req, res) => {
     });
 });
 
-app.post("/register", checkLogout, (req, res) => {
+app.post("/register", checkLogin, (req, res) => {
     user.neu(req).then(({ e, id, init }) => {
         if (e) {
             exists = e;
@@ -59,6 +58,29 @@ app.post("/register", checkLogout, (req, res) => {
         } else {
             req.session.signatureId = id;
             req.session.init = init;
+            res.redirect("./data");
+        }
+    });
+});
+
+app.get("/login", checkLogin, (req, res) => {
+    res.render("login", {
+        title: "Log in",
+        script: [{ script: "./animatedata.js" }],
+        style: [{ style: "./style.css" }, { style: "data.css" }],
+    });
+});
+app.post("/login", checkLogin, (req, res) => {
+    user.login(req).then(({ e, id, init, data, signed }) => {
+        if (e) {
+            exists = e;
+            res.redirect("./login");
+        } else {
+            req.session.signatureId = id;
+            req.session.init = init;
+            req.session.data = data;
+            req.session.signature = signed;
+            console.log(req.session);
             res.redirect("./data");
         }
     });
@@ -122,6 +144,12 @@ app.get("/thanks", checkLogin, checkSignature, (req, res) => {
 
         db.signatoires()
             .then(({ rows }) => {
+                var names = [];
+                rows.forEach((x) => {
+                    names.push({
+                        name: x.name.split("")[0] + x.name.split("")[0],
+                    });
+                });
                 res.render("thanks", {
                     title: "Thanks!",
                     init: req.session.init,
@@ -129,6 +157,7 @@ app.get("/thanks", checkLogin, checkSignature, (req, res) => {
                     surname: surname,
                     signature: signature,
                     number: rows.length,
+                    names,
                     style: [{ style: "style.css" }, { style: "thanks.css" }],
                     script: [
                         { script: "/animatethanks.js" },
@@ -148,7 +177,10 @@ app.get("/signers", checkLogin, checkSignature, (req, res) => {
                 init: req.session.init,
                 signers: rows,
                 style: [{ style: "/style.css" }, { style: "/signers.css" }],
-                script: [{ script: "./menu.js" }],
+                script: [
+                    { script: "./menu.js" },
+                    { script: "./animatesigners.js" },
+                ],
             });
         })
         .catch((err) => console.log("error", err));
@@ -171,7 +203,7 @@ app.get("/profile", checkLogin, (req, res) => {
             website,
             signature,
             script: [{ script: "./menu.js" }],
-            style: [{ style: "style.css" }],
+            style: [{ style: "style.css" }, { style: "profile.css" }],
         });
     });
 });
@@ -193,7 +225,7 @@ app.get("/edit", checkLogin, (req, res) => {
             email,
 
             script: [{ script: "./menu.js" }],
-            style: [{ style: "style.css" }],
+            style: [{ style: "edit.css" }],
         });
     });
 });
@@ -230,12 +262,14 @@ app.post("/deletesignature", (req, res) => {
     );
 });
 
-app.post("/logout", (req, res) => {
-    delete req.session;
-    res.redirect("/profile");
+app.get("/logout", (req, res) => {
+    exists = null;
+    req.session = null;
+    res.redirect("/home");
 });
+
 app.get("*", (req, res) => {
     res.redirect("/");
 });
-
-app.listen(8080, console.log("Listening to port 8080"));
+app.listen(process.env.PORT || 8080);
+//app.listen(8080, console.log("Listening to port 8080"));

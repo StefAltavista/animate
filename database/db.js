@@ -1,6 +1,23 @@
 const spicedPg = require("spiced-pg");
 
-const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
+let db;
+
+if (process.env.DATABASE_URL) {
+    // it means that the app runs on heroku
+    db = spicedPg(process.env.DATABASE_URL);
+} else {
+    // the app runs locally
+    // const {
+    //     DATABASE_USER,
+    //     DATABASE_PASSWORD,
+    //     DATABASE_NAME,
+    // } = require("./secrets.json");
+    db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
+    // console.log(`[db] Connecting to: ${DATABASE_NAME}`);
+    console.log(`[db] Connecting to: local`);
+}
+
+//const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
 var where;
 
 const querydb = () => db.query(`SELECT * FROM users;`);
@@ -35,7 +52,10 @@ const register = (email, hash, name, surname) => {
 
 const add = (user_id, age, city, country, website) => {
     return db.query(
-        `INSERT INTO userData (user_id, age, city, country,website) VALUES ($1, $2, $3, $4, $5) RETURNING id`,
+        `INSERT INTO userData (user_id, age, city, country, website)
+        VALUES ($1, $2, $3, $4, $5)
+        ON CONFLICT (user_id)
+        DO UPDATE SET age=$2, city=$3, country=$4, website=$5 `,
         [user_id, age, city, country, website]
     );
 };

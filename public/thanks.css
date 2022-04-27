@@ -1,4 +1,8 @@
 .bubble {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(49, 0, 140, 0.67);
     width: 150px;
     height: 150px;
     position: absolute;
