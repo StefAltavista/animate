@@ -42,8 +42,10 @@ img {
     justify-content: center;
     align-items: center;
     border-bottom: 1px dashed rgb(255, 255, 255);
+    overflow: hidden;
 }
 
 #grid div {
     border-right: 4px solid rgba(255, 255, 255, 0);
+    overflow: hidden;
 }
