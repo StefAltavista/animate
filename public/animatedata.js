@@ -2,6 +2,7 @@
     var form = document.querySelector("form");
     var title = document.querySelector(".title");
     var body = document.querySelector("body");
+    var exists = document.querySelector("#exists");
     var up = false;
     var uph = false;
     var w = 0;
@@ -11,6 +12,8 @@
     var x = 0;
     var y = 0;
     var o = 0;
+
+    exists ? (w = 350) : "";
 
     const animateForm = () => {
         body.style.background = `linear-gradient(

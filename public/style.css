@@ -115,3 +115,59 @@ a:link {
     flex-direction: column;
     align-content: center;
 }
+
+nav {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: right;
+}
+#init {
+    width: auto;
+    height: 37px;
+}
+
+#account {
+    background-color: rgb(187, 218, 245);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0px 0px 20px 1px rgb(198, 175, 249);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    transition: 1s;
+    /* background: linear-gradient(
+        rgba(255, 255, 255, 0.459),
+        rgba(176, 161, 230, 0.512)
+    ); */
+}
+
+#account:hover {
+    box-shadow: 0px 0px 30px 10px rgb(255, 255, 255);
+    /* animation-name: rotation;
+    animation-duration: 2s;
+    animation-iteration-count: 1; */
+}
+@keyframes rotation {
+    0% {
+        transform: rotate(0turn);
+    }
+    50% {
+        transform: rotate(1turn);
+    }
+    100% {
+        transform: rotate(0turn);
+    }
+}
+
+#menu {
+    width: auto;
+    height: 0px;
+    overflow: hidden;
+    background-color: rgba(190, 128, 240, 0.734);
+    transition: 1s;
+}

@@ -8,9 +8,21 @@
     </head>
     <body>
         {{{body}}}
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        {{#script}}<script src={{script}}></script>
-        {{/script}}
 
+    {{#if init}} 
+    <nav>
+        <div id="account"><div id="init"><p>{{init}}</p></div></div>
+        <div id="menu" class="hide">
+            <ul>
+                <a href="/profile"><li>profile</li></a>
+                <a href="/signatoires"><li>signatoires</li></a>
+                <a href="/logout"><li>log out</li></a>
+            </ul>
+        </div>
+    </nav>
+    {{/if}}
+
+     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     {{#script}}<script src={{script}}></script>{{/script}}
     </body>
 </html>

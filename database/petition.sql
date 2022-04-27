@@ -7,18 +7,18 @@ CREATE TABLE users(
      id             SERIAL PRIMARY KEY,
      email          VARCHAR UNIQUE NOT NULL CHECK (email != ''),
      hash           VARCHAR NOT NULL CHECK (hash != ''),
+     name           VARCHAR,  
+     surname        VARCHAR,  
      created_at     TIMESTAMP DEFAULT CURRENT_TIMESTAMP
      
 );
 CREATE TABLE userData(
      id             SERIAL PRIMARY KEY,
      user_id        INT NOT NULL UNIQUE REFERENCES users(id), 
-     name           VARCHAR,  
-     surname        VARCHAR,  
      age            INT, 
      city           VARCHAR, 
      country        VARCHAR, 
-     link           VARCHAR
+     website        VARCHAR
 );
 CREATE TABLE signatures(
      id             SERIAL PRIMARY KEY,
@@ -30,23 +30,23 @@ CREATE TABLE signatures(
 --DUMMY DATA--
 
 
-INSERT INTO users(email, hash) 
-VALUES ( 'stefano@altavista.com' , 'mypasswordhashedinacrazyway');
-INSERT INTO users(email, hash) 
-VALUES ( 'stefano@spices.com' , 'anotherpasswordhashedinacrazyway');
-INSERT INTO users(email, hash) 
-VALUES ( 'jimmy@hendrix.com' , 'jimmyspasswordhashedinacrazyway');
-INSERT INTO users(email, hash) 
-VALUES ( 'alexander@thegreat' , 'alexanderspasswordhashedinacrazyway');
+INSERT INTO users(email, hash, name, surname) 
+VALUES ( 'stefano@altavista.com' , 'mypasswordhashedinacrazyway', 'Stefano', 'Altavista');
+INSERT INTO users(email, hash, name, surname) 
+VALUES ( 'stefano@spices.com' , 'anotherpasswordhashedinacrazyway', 'Spicy', 'Stef');
+INSERT INTO users(email, hash, name, surname) 
+VALUES ( 'jimmy@hendrix.com' , 'jimmyspasswordhashedinacrazyway', 'Jimmy', 'Hendrix');
+INSERT INTO users(email, hash, name, surname) 
+VALUES ( 'alexander@thegreat' , 'alexanderspasswordhashedinacrazyway', 'Alexander', 'Thegreat');
 
-INSERT INTO userData(user_id, name, surname, age,city,country,link) 
-VALUES (1, 'Stefano', 'Altavista', 30, 'Berlin', 'Germany', 'google.com');
-INSERT INTO userData(user_id, name, surname, age,city,country,link) 
-VALUES (2, 'Spicy', 'Stef', 30, 'Berlin', 'Germany', 'google.com');
-INSERT INTO userData(user_id, name, surname, age,city,country,link) 
-VALUES (3, 'Jimmy', 'Hendrix', 27, 'Woodstock', 'USA', 'google.com');
-INSERT INTO userData(user_id, name, surname, age,city,country,link) 
-VALUES (4, 'Alexander', 'Thegreat', 30, 'Athens', 'Greece', 'google.com');
+INSERT INTO userData(user_id, age, city, country, website) 
+VALUES (1, 30, 'Berlin', 'Germany', 'http://www.google.com');
+INSERT INTO userData(user_id, age, city, country, website) 
+VALUES (2, 30, 'Berlin', 'Germany', 'http://www.google.com');
+INSERT INTO userData(user_id, age, city, country, website) 
+VALUES (3, 27, 'Woodstock', 'USA', 'http://www.google.com');
+INSERT INTO userData(user_id, age, city, country, website) 
+VALUES (4, 30, 'Athens', 'Greece', 'http://www.google.com');
 
 INSERT INTO signatures(user_id,signature) 
 VALUES (1,'mysigaturecodifiedinacrazyway');

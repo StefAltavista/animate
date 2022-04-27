@@ -1,0 +1,31 @@
+<header>
+    <div id="avatar">
+        <img src="" />
+    </div>
+
+    <h1>Hello: {{name}} {{surname}}</h1>
+</header>
+
+<div id="signature">
+    <h3>Signature</h3>
+    {{#if signature}}<img src="{{signature}}" />
+    {{else}}
+        You havent sign the petition yet
+    {{/if}}
+    <form action="/deletesignature" method="post">
+        <button type="submit">Delete Signature</button>
+    </form>
+</div>
+
+<p>Personal Informations</p>
+
+<div class="data">
+    <p>age: {{age}}</p>
+    <p>City: {{city}}</p>
+    <p>Country: {{country}}</p>
+    <p>Website: {{link}}</p>
+</div>
+
+<form action="/edit" method="get">
+    <button type="submit">Update Informations</button>
+</form>

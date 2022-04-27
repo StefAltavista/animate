@@ -1,22 +1,22 @@
 const bcrypt = require("bcryptjs");
 const db = require("./database/db.js");
 var exists;
-module.exports.neu = (email, password) => {
-    return db.query("userAuth").then(({ rows }) => {
-        console.log("method neu:", rows);
-        rows.filter((x) => {
-            x.email == email ? (exists = true) : (exists = false);
-        });
 
-        if (exists) {
-            return null;
-        } else {
-            return crypt(password).then((hash) => {
-                return db.register(email, hash).then(({ rows }) => {
-                    return rows[0].id;
-                });
-            });
+const neu = (req) => {
+    const { email, password, name, surname } = req.body;
+    return db.querydb().then(({ rows }) => {
+        exists = rows.filter((x) => x.email == email);
+        console.log(exists[0]);
+        if (exists[0]) {
+            return { e: exists[0].email, id: null };
         }
+
+        return crypt(password).then((hash) => {
+            return db.register(email, hash, name, surname).then(({ rows }) => {
+                var n = name.split("")[0] + surname.split("")[0];
+                return { e: null, id: rows[0].id, init: n };
+            });
+        });
     });
 };
 
@@ -27,3 +27,9 @@ const crypt = (p) => {
 };
 
 const decrypt = (p, h) => bcrypt.compare(p, h);
+
+module.exports = {
+    crypt,
+    decrypt,
+    neu,
+};

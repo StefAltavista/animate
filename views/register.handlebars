@@ -1,15 +1,26 @@
-<a href="/home"><div class="title"><h1 class="header">animate</h1></div></a>
-<form method="POST">
-    <label>email</label>
-    <input type="email" name="email" required />
-    <label>password</label>
-    <input type="password" name="password" required />
-    <div class="buttons">
-        <button type="submit">sign in</button>
-        {{#if exists}}<strong style="color:red">this email is already registered
-                on our database</strong>;{{/if}}
-        <a href="/login"><div class="button">log in</div></a></div>
-</form>
+<div class="title"><h1 class="header">animate</h1></div>
+<div class="field">
+    <form method="POST">
+        <input type="text" name="name" placeholder="name" required />
+        <input type="text" name="surname" placeholder="surname" required />
+        <input type="email" name="email" placeholder="email" required />
+        <input
+            type="password"
+            name="password"
+            placeholder="password"
+            required
+        />
+
+        <div class="buttons">
+            <button type="submit">sign in</button>
+
+            <a href="/login"><div class="button">log in</div></a></div>
+    </form>
+    {{#if exists}}<div id="exists"><p
+                style="text-decoration:underline"
+            >{{exists}}</p><p>
+                is already taken</div>{{/if}}
+</div>
 <div class="tell" style="margin-left: 40px">
     <p>from Latin animatus, past participle of animare "give breath to. Anima:
         "Breath, Soul". To animate litterally means "to give a soul".
