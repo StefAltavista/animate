@@ -9,7 +9,11 @@
 
         {{#if signature}}<img src="{{signature}}" />
         {{else}}
-            You havent sign the petition yet
+            <div id="nosign">
+                <p> You havent sign the petition yet</p>
+                <form><a href="/sign"> sign</a>
+                </form>
+            </div>
         {{/if}}
 
     </div></div>

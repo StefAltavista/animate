@@ -105,8 +105,8 @@ app.get("/data", checkLogin, checkAdd, (req, res) => {
     });
 });
 
-app.post("/data", checkLogin, checkData, (req, res) => {
-    let { age, city, country, website } = req.body;
+app.post("/data", checkLogin, (req, res) => {
+    let { age, city, country, website } = checkData(req, res);
 
     db.add(req.session.signatureId, age, city, country, website)
         .then(() => {
@@ -231,8 +231,10 @@ app.get("/edit", checkLogin, (req, res) => {
 });
 
 app.post("/edit", (req, res) => {
-    let { name, surname, age, city, country, website, email, password } =
-        req.body;
+    console.log("post edit");
+
+    let { name, surname, email, password } = req.body;
+    let { age, city, country, website } = checkData(req, res);
     let hash;
     db.queryById(req.session.signatureId).then(({ rows }) => {
         if (!password) {
@@ -241,7 +243,6 @@ app.post("/edit", (req, res) => {
             hash = user.crypt(password);
         }
 
-        if (typeof age != "number") age = null;
         db.update(
             req.session.signatureId,
             name,
@@ -257,9 +258,10 @@ app.post("/edit", (req, res) => {
 });
 
 app.post("/deletesignature", (req, res) => {
-    db.deletesignature(req.session.signatureId).then(() =>
-        res.redirect("/profile")
-    );
+    db.deletesignature(req.session.signatureId).then(() => {
+        req.session.signature = null;
+        res.redirect("/profile");
+    });
 });
 
 app.get("/logout", (req, res) => {

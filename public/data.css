@@ -5,6 +5,10 @@ body {
     align-items: center;
     position: relative;
 }
+
+a {
+    color: rgb(23, 30, 106);
+}
 .title {
     display: flex;
     justify-content: center;

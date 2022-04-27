@@ -8,28 +8,41 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
-    /* background: linear-gradient(
-        rgba(161, 221, 230, 0),
-        rgba(88, 178, 234, 0),
-        rgba(255, 255, 255, 0.354)
-    ); */
+    align-content: center;
     box-shadow: 0px 0px 30px 2px rgb(255, 255, 255);
     width: 100%;
     margin: 0;
 }
 header {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: flex-start;
-    align-items: flex-start;
+    min-height: 70px;
 }
 header * {
     margin: 0;
 }
 img {
+    margin-left: 20px;
     width: 125px;
     height: 125px;
+}
+#nosign {
+    margin-left: 20px;
+    display: flex;
+    flex-direction: row;
+}
+#nosign form {
+    margin-left: 20px;
+    font-size: 12px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+a {
+    color: rgb(23, 30, 106);
 }
 
 #info {

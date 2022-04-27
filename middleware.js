@@ -29,14 +29,18 @@ function checkData(req, res, next) {
         res.redirect("/sign");
         next();
     }
+
     if (!/^[0-9]+$/.test(age)) {
+        console.log("redirect", age);
         age = null;
+        res.redirect("/profile");
+        next();
     }
     if (!website.startsWith("http://") || !website.startsWith("https://")) {
         website = "http://" + website;
     }
 
-    next();
+    return { age, city, country, website };
 }
 function checkSignature(req, res, next) {
     if (req.route.path == "/sign" && req.session.signature) {
